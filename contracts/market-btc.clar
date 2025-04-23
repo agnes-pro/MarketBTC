@@ -76,7 +76,7 @@
     ((brand-data {
       name: name,
       verified: false,
-      created-at: block-height
+      created-at: stacks-block-height
     }))
     (ok (map-set Brands tx-sender brand-data))
   )
@@ -114,7 +114,7 @@
           description: description,
           price: price,
           available: true,
-          created-at: block-height,
+          created-at: stacks-block-height,
           is-auction: false
         })))
       (err err-invalid-price)
@@ -156,7 +156,7 @@
   (let
     ((brand (unwrap! (map-get? Brands tx-sender) (err err-not-brand-owner)))
      (product-id (+ (var-get product-counter) u1))
-     (end-block (+ block-height duration)))
+     (end-block (+ stacks-block-height duration)))
     
     (asserts! (>= duration u10) (err err-invalid-duration))
     (asserts! (> min-price u0) (err err-invalid-price))
@@ -169,7 +169,7 @@
         description: description,
         price: min-price,
         available: true,
-        created-at: block-height,
+        created-at: stacks-block-height,
         is-auction: true
       }))
       (ok (map-set Auctions product-id {
@@ -189,7 +189,7 @@
      (auction (unwrap! (map-get? Auctions product-id) (err err-no-active-auction))))
     
     (asserts! (get is-active auction) (err err-auction-ended))
-    (asserts! (<= block-height (get end-block auction)) (err err-auction-ended))
+    (asserts! (<= stacks-block-height (get end-block auction)) (err err-auction-ended))
     (asserts! (>= bid-amount (get min-price auction)) (err err-bid-too-low))
     (asserts! (> bid-amount (get highest-bid auction)) (err err-bid-too-low))
     
@@ -218,7 +218,7 @@
      (brand (get brand product)))
     
     (asserts! (get is-active auction) (err err-auction-ended))
-    (asserts! (>= block-height (get end-block auction)) (err err-auction-ended))
+    (asserts! (>= stacks-block-height (get end-block auction)) (err err-auction-ended))
     
     (match (get highest-bidder auction)
       winner (begin
@@ -253,7 +253,7 @@
       {
         rating: rating,
         comment: comment,
-        timestamp: block-height
+        timestamp: stacks-block-height
       }))
   )
 )
