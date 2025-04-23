@@ -86,6 +86,39 @@ To deploy:
 clarinet deploy
 ```
 
+## Architecture
+
+The MarketBTC platform integrates Bitcoin's security with Stacks' smart contract capabilities to create a fully decentralized marketplace:
+
+![MarketBTC-Architecture-Agnes](https://github.com/user-attachments/assets/4bbcc81f-a1d3-4b4e-a324-19072d33af35)
+
+### System Components
+
+1. **User Roles**:
+   - **Merchants**: Register brands and list products for sale or auction
+   - **Buyers**: Purchase products, place bids, and leave reviews
+   - **Admin** (Contract Owner): Verifies brands and collects platform fees
+
+2. **Smart Contract Layer**:
+   - **Four Primary Data Maps**:
+     - `Brands`: Merchant identity and verification status
+     - `Products`: Listing details and availability
+     - `Auctions`: Bidding status and escrow management
+     - `Reviews`: Customer feedback and ratings
+
+3. **Blockchain Integration**:
+   - **Stacks Layer**: Executes smart contract logic and maintains state
+   - **Bitcoin Layer**: Provides settlement finality and security
+
+### Transaction Flow
+
+1. Merchants register brands and create product listings
+2. Buyers interact with listings through direct purchases or auction bids
+3. The contract automatically handles escrow, fee collection, and payment distribution
+4. All transactions are immutably recorded on-chain
+
+This two-layer blockchain approach ensures the security and finality of Bitcoin while enabling the complex marketplace functionality required for a full-featured decentralized commerce platform.
+
 ## Security Considerations
 
 - Funds are escrowed during auctions to prevent fraudulent bidding.
